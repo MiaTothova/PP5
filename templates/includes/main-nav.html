@@ -17,10 +17,10 @@
                 Chocolate
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="clothing-link">
-            <a href="" class="dropdown-item">Bars</a> <!--Activewear-->
-                <a href="" class="dropdown-item">Truffles</a> <!--Jeans-->
-                <a href="" class="dropdown-item">Sauces</a> <!--Shirts-->
-                <a href="" class="dropdown-item">All Choc.</a> <!--All-->
+            <a href="{% url 'products' %}?category=Bars" class="dropdown-item">Bars</a> <!--Activewear-->
+                <a href="{% url 'products' %}?category=Truffles" class="dropdown-item">Truffles</a> <!--Jeans-->
+                <a href="{% url 'products' %}?category=Sauces" class="dropdown-item">Sauces</a> <!--Shirts-->
+                <a href="{% url 'products' %}?category=Bars,Truffles,Sauces" class="dropdown-item">All Chocolate.</a> <!--All-->
             </div>
         </li>
 
@@ -29,9 +29,9 @@
                 Candy
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="homeware-link">
-                <a href="" class="dropdown-item">Hard Candy</a> <!--Bed,Bath-->
-                <a href="" class="dropdown-item">Soft Candy</a> <!--Kitchen, dining-->
-                <a href="" class="dropdown-item">All Candy</a> <!--all-->
+                <a href="{% url 'products' %}?category=Hard_Candy" class="dropdown-item">Hard Candy</a> <!--Bed,Bath-->
+                <a href="{% url 'products' %}?category=Soft_Candy" class="dropdown-item">Soft Candy</a> <!--Kitchen, dining-->
+                <a href="{% url 'products' %}?category=Hard_Candy,Soft_Candy" class="dropdown-item">All Candy</a> <!--all-->
             </div>
         </li>
 
