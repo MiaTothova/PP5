@@ -28,7 +28,10 @@ SECRET_KEY = 'django-insecure-u!v&7mjqk*xo7gq4gj$qy*#9g(lub(^p6+##uys_hf4a63b!c(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+]
 
 
 # Application definition
@@ -177,6 +180,7 @@ STANDARD_DELIVERY_PERCENTAGE = 10
 STRIPE_CURRENCY = 'usd'
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
+STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', 'whsec_771022c9392217f729753a1384d2cef698c6e5e3beff383b4e161df2a7d3d733')
 
 
 # Default primary key field type
