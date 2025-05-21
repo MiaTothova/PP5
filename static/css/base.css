@@ -267,6 +267,24 @@ input[name='q']::placeholder {
 }
 
 
+
+
+/* FOOTER */
+
+footer input[type="email"] {
+    max-width: 300px;
+    border-radius: 0;
+    padding: 0.5rem;
+}
+
+/* footer button {
+    border-radius: 0;
+} */
+
+
+
+
+
 /* fixed top navbar only on medium and up */
 @media (min-width: 992px) {
     .fixed-top-desktop-only {

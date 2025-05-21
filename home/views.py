@@ -16,8 +16,11 @@ def newsletter_signup(request):
         form = NewsletterForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Thank you for subscribing!")
-            return redirect('home')
-    else:
-        form = NewsletterForm()
-    return render(request, 'home/newsletter.html', {'form': form})
+            messages.add_message(request, messages.SUCCESS, 'Subscribed to the newsletter successfully!')
+        else:
+            messages.add_message(request, messages.ERROR, 'This email is already subscribed or invalid.')
+    return redirect('home')
+
+
+# def newsletter_thank_you(request):
+#     return render(request, 'home/newsletter_thank_you.html')
