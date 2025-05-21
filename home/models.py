@@ -19,3 +19,9 @@ class ContactMessage(models.Model):
     def __str__(self):
         return f'Message from {self.name} ({self.email})'
 
+class FAQ(models.Model):
+    question = models.CharField(max_length=300)
+    answer = models.TextField()
+
+    def __str__(self):
+        return self.question

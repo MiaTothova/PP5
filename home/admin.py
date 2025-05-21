@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import NewsletterSubscription, ContactMessage
+from .models import NewsletterSubscription, ContactMessage, FAQ
 
 @admin.register(NewsletterSubscription)
 class NewsletterAdmin(admin.ModelAdmin):
@@ -10,3 +10,8 @@ class NewsletterAdmin(admin.ModelAdmin):
 class ContactMessageAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'sent_on')  
     readonly_fields = ('sent_on',)
+
+
+@admin.register(FAQ)
+class FAQAdmin(admin.ModelAdmin):
+    list_display = ('question',)
