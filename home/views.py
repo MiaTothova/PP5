@@ -22,5 +22,18 @@ def newsletter_signup(request):
     return redirect('home')
 
 
-# def newsletter_thank_you(request):
-#     return render(request, 'home/newsletter_thank_you.html')
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import ContactForm
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Thank you for your message! We will get back to you soon.')
+            return redirect('home')
+    else:
+        form = ContactForm()
+    return render(request, 'home/contact.html', {'form': form})
+
