@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import NewsletterForm
+from .forms import NewsletterForm, ContactForm
+from .models import FAQ
 
-# Create your views here.
 
 def index(request):
     """ A view to return the index page """
-    
+
     return render(request, 'home/index.html')
 
 
@@ -22,10 +22,6 @@ def newsletter_signup(request):
     return redirect('home')
 
 
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .forms import ContactForm
-
 def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -37,3 +33,7 @@ def contact(request):
         form = ContactForm()
     return render(request, 'home/contact.html', {'form': form})
 
+
+def faq(request):
+    faqs = FAQ.objects.all()
+    return render(request, 'home/faq.html', {'faqs': faqs})
