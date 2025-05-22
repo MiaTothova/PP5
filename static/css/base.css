@@ -3,13 +3,16 @@ html {
 }
 
 body {
-    height: calc(100vh - 164px);
+    /* height: calc(100vh - 164px); */
     color: #0b0b0b;
     background-color: rgb(252, 111, 156) !important;
-    font-family: 'Lato';
+    font-family: 'Quicksand', sans-serif;
     /* background-color: rgb(169, 100, 9); */
 }
 
+#logo {
+    font-family: 'Pacifico', cursive;
+}
 /* from Bulma */
 .icon {
     align-items: center;
@@ -312,6 +315,8 @@ footer input[type="email"] {
 
     .header-container {
         padding-top: 164px;
+        /* padding-top: 204px; */
+
     }
 }
 
@@ -319,6 +324,8 @@ footer input[type="email"] {
 @media (max-width: 991px) {
     .header-container {
         padding-top: 116px;
+        /* padding-top: 156px; */
+
     }
 
     body {
