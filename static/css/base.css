@@ -298,6 +298,20 @@ footer input[type="email"] {
     padding: 0.5rem;
 }
 
+footer i {
+    transition: color 0.3s ease;
+}
+
+footer i:hover {
+    color: #f8c1d8; /* light pink hover to match your sweet theme */
+}
+
+footer hr {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+
 
 
 
