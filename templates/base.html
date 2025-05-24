@@ -146,7 +146,11 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         {% include 'includes/mobile-top-header.html' %}
-        {% include 'includes/main-nav.html' %}
+        <div class="collapse navbar-collapse" id="main-nav">
+          <ul class="navbar-nav ml-auto">
+           {% include 'includes/main-nav.html' %}
+          </ul>
+        </div>
       </nav>
     </div>
     <div id="delivery-banner" class="row text-center">
@@ -239,26 +243,4 @@
   </div>
 </footer>
 
-
-
-
-
-
-<!-- 
-<footer class="bg-dark text-white mt-5 py-4">
-  <div class="container">
-    <div class="row">
-      <!-- Left side: Newsletter 
-      <div class="col-md-6 mb-3">
-        <h5 class="text-uppercase">Subscribe to our Newsletter</h5>
-        <form method="POST" action="{% url 'newsletter' %}" class="form-inline">
-          {% csrf_token %}
-          <div class="form-group d-flex">
-            {{ newsletter_form.email|as_crispy_field }}
-            <button type="submit" class="btn btn-light ml-2">Subscribe</button>
-          </div>
-        </form>
-      </div>
-
-</footer> -->
 </html>
