@@ -16,9 +16,17 @@ def newsletter_signup(request):
         form = NewsletterForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.SUCCESS, 'Subscribed to the newsletter successfully!')
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                'Subscribed to the newsletter successfully!'
+                )
         else:
-            messages.add_message(request, messages.ERROR, 'This email is already subscribed or invalid.')
+            messages.add_message(
+                request,
+                messages.ERROR,
+                'This email is already subscribed or invalid.'
+                )
     return redirect('home')
 
 
@@ -27,7 +35,10 @@ def contact(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Thank you for your message! We will get back to you soon.')
+            messages.success(
+                request,
+                'Thank you for your message! We will get back to you soon.'
+                )
             return redirect('home')
     else:
         form = ContactForm()
