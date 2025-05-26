@@ -174,7 +174,7 @@
                   <form method="POST" action="{% url 'newsletter' %}" class="form-inline">
                      {% csrf_token %} 
                      <div class="form-group d-flex flex-wrap">
-                        {{ newsletter_form.email|as_crispy_field }}
+                        {{ newsletter_form.email|as_crispy_field:"custom_%s" }}
                         <button type="submit" class="btn btn-light ml-2">Subscribe</button>
                      </div>
                   </form>
@@ -192,7 +192,7 @@
                   <i class="fab fa-instagram fa-2x"></i>
                   </a>
                </div>
-            </div>
+            </div> 
             <!-- Divider -->
             <hr class="bg-white">
             <!-- Copyright -->
