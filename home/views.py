@@ -13,7 +13,7 @@ def index(request):
 def newsletter_signup(request):
     """View to handle newsletter signup."""
     if request.method == 'POST':
-        form = NewsletterForm(request.POST)
+        form = NewsletterForm(request.POST, prefix='newsletter')
         if form.is_valid():
             form.save()
             messages.add_message(
