@@ -28,7 +28,9 @@ def cache_checkout_data(request):
         stripe.PaymentIntent.modify(pid, metadata={
             'bag': json.dumps(request.session.get('bag', {})),
             'save_info': request.POST.get('save_info'),
-            'username': request.user,
+            'username': request.user.username,
+            'order_id': request.session.get('order_id'),
+            'email': request.POST.get('email'),
         })
         return HttpResponse(status=200)
     except Exception as e:
@@ -62,6 +64,8 @@ def checkout(request):
             order.stripe_pid = pid
             order.original_bag = json.dumps(bag)
             order.save()
+
+            request.session['order_id'] = order.id
             for item_id, item_data in bag.items():
                 try:
                     product = Product.objects.get(id=item_id)

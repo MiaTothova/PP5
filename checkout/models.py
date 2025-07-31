@@ -58,7 +58,8 @@ class Order(models.Model):
         null=False,
         blank=False,
         default=''
-        )
+    )
+    email_sent = models.BooleanField(default=False)
 
     def _generate_order_number(self):
         """
