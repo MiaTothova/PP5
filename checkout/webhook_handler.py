@@ -19,6 +19,7 @@ class StripeWH_Handler:
 
     def _send_confirmation_email(self, order):
         """Send the user a confirmation email"""
+        print(">>> SENDING EMAIL NOW <<<")
         cust_email = order.email
         subject = render_to_string(
             'checkout/confirmation_emails/confirmation_email_subject.txt',
@@ -116,6 +117,7 @@ class StripeWH_Handler:
 
         if order_exists:
             if not order.email_sent:
+                print(">>> Calling send_mail from webhook handler <<<")
                 self._send_confirmation_email(order)
                 order.email_sent = True
                 order.save(update_fields=['email_sent'])
@@ -160,6 +162,7 @@ class StripeWH_Handler:
                 )
 
             self._send_confirmation_email(order)
+            print(">>> Called send_mail after creating new order <<<")
             order.email_sent = True
             order.save(update_fields=['email_sent'])
 
