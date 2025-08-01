@@ -9,6 +9,7 @@ from profiles.models import UserProfile
 
 import json
 import time
+import stripe
 
 
 class StripeWH_Handler:
@@ -52,9 +53,15 @@ class StripeWH_Handler:
         username = intent.metadata.get('username')
         shipping_details = intent.get("shipping", {})
 
-        billing_details = intent.get("charges", {}).get("data", [{}])[0].get("billing_details", {})
-        amount_received = intent.get("amount_received", 0)
-        grand_total = round(amount_received / 100, 2)
+        try:
+            stripe_charge = stripe.Charge.retrieve(intent.latest_charge)
+            billing_details = stripe_charge.billing_details
+            grand_total = round(stripe_charge.amount / 100, 2)
+        except Exception as e:
+            return HttpResponse(
+                content=f'Webhook received: {event["type"]} | ERROR retrieving charge: {e}',
+                status=400
+            )
 
         shipping_details = intent.get("shipping", {})
         for field, value in shipping_details.get("address", {}).items():
@@ -154,12 +161,13 @@ class StripeWH_Handler:
                     order_line_item.save()
 
             except Exception as e:
-                if order:
+               print(f"🔥 Webhook Error: {e}")  # Add this line to get the actual error in terminal
+               if order:
                     order.delete()
-                return HttpResponse(
+               return HttpResponse(
                     content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500
-                )
+               )
 
             self._send_confirmation_email(order)
             print(">>> Called send_mail after creating new order <<<")
