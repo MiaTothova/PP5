@@ -20,13 +20,19 @@ class StripeWH_Handler:
 
     def _send_confirmation_email(self, order):
         """Send the user a confirmation email"""
-        order_email = order.email
+        order_email = order.email  # noqa: F841
         subject = render_to_string(
             'checkout/confirmation_emails/confirmation_email_subject.txt',
-            {'order': order})
+            {'order': order}
+
+        )
         body = render_to_string(
             'checkout/confirmation_emails/confirmation_email_body.txt',
-            {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
+            {
+                'order': order,
+                'contact_email': settings.DEFAULT_FROM_EMAIL
+            }
+        )
 
         send_mail(
             subject,
@@ -38,7 +44,9 @@ class StripeWH_Handler:
     def handle_event(self, event):
         """Handle a generic/unknown/unexpected webhook event"""
         return HttpResponse(
-            content=f'Unhandled webhook received: {event["type"]}',
+            content=(
+                f'Unhandled webhook received: {event["type"]}'
+            ),
             status=200
         )
 
@@ -56,9 +64,12 @@ class StripeWH_Handler:
             stripe_charge = stripe.Charge.retrieve(intent.latest_charge)
             billing_details = stripe_charge.billing_details
             grand_total = round(stripe_charge.amount / 100, 2)
-        except Exception as e:
+        except Exception as e:  # noqa: F841
             return HttpResponse(
-                content=f'Webhook received: {event["type"]} | ERROR retrieving charge: {e}',
+                content=(
+                    f'Webhook received: {event["type"]} | '
+                    'ERROR retrieving charge: {e}'
+                ),
                 status=400
             )
 
@@ -72,12 +83,24 @@ class StripeWH_Handler:
             profile = UserProfile.objects.get(user__username=username)
             if save_info:
                 profile.default_phone_number = shipping_details.get("phone")
-                profile.default_country = shipping_details.get("address", {}).get("country")
-                profile.default_postcode = shipping_details.get("address", {}).get("postal_code")
-                profile.default_town_or_city = shipping_details.get("address", {}).get("city")
-                profile.default_street_address1 = shipping_details.get("address", {}).get("line1")
-                profile.default_street_address2 = shipping_details.get("address", {}).get("line2")
-                profile.default_county = shipping_details.get("address", {}).get("state")
+                profile.default_country = shipping_details.get(
+                    "address", {}
+                ).get("country")
+                profile.default_postcode = shipping_details.get(
+                    "address", {}
+                ).get("postal_code")
+                profile.default_town_or_city = shipping_details.get(
+                    "address", {}
+                ).get("city")
+                profile.default_street_address1 = shipping_details.get(
+                    "address", {}
+                ).get("line1")
+                profile.default_street_address2 = shipping_details.get(
+                    "address", {}
+                ).get("line2")
+                profile.default_county = shipping_details.get(
+                    "address", {}
+                ).get("state")
                 profile.save()
 
         if order_id:
@@ -88,12 +111,18 @@ class StripeWH_Handler:
                     order.email_sent = True
                     order.save(update_fields=['email_sent'])
                 return HttpResponse(
-                    content=f'Webhook received: {event["type"]} | SUCCESS: Email sent using order_id',
+                    content=(
+                        f'Webhook received: {event["type"]} | '
+                        'SUCCESS: Email sent using order_id'
+                    ),
                     status=200
                 )
             except Order.DoesNotExist:
                 return HttpResponse(
-                    content=f'Webhook received: {event["type"]} | ERROR: Order ID not found',
+                    content=(
+                        f'Webhook received: {event["type"]} | '
+                        'ERROR: Order ID not found'
+                    ),
                     status=404
                 )
 
@@ -105,12 +134,24 @@ class StripeWH_Handler:
                     full_name__iexact=shipping_details.get("name"),
                     email__iexact=billing_details.get("email"),
                     phone_number__iexact=shipping_details.get("phone"),
-                    country__iexact=shipping_details.get("address", {}).get("country"),
-                    postcode__iexact=shipping_details.get("address", {}).get("postal_code"),
-                    town_or_city__iexact=shipping_details.get("address", {}).get("city"),
-                    street_address1__iexact=shipping_details.get("address", {}).get("line1"),
-                    street_address2__iexact=shipping_details.get("address", {}).get("line2"),
-                    county__iexact=shipping_details.get("address", {}).get("state"),
+                    country__iexact=shipping_details.get(
+                        "address", {}
+                    ).get("country"),
+                    postcode__iexact=shipping_details.get(
+                        "address", {}
+                    ).get("postal_code"),
+                    town_or_city__iexact=shipping_details.get(
+                        "address", {}
+                    ).get("city"),
+                    street_address1__iexact=shipping_details.get(
+                        "address", {}
+                    ).get("line1"),
+                    street_address2__iexact=shipping_details.get(
+                        "address", {}
+                    ).get("line2"),
+                    county__iexact=shipping_details.get(
+                        "address", {}
+                    ).get("state"),
                     grand_total=grand_total,
                     original_bag=bag,
                     stripe_pid=pid,
@@ -128,7 +169,10 @@ class StripeWH_Handler:
                 order.email_sent = True
                 order.save(update_fields=['email_sent'])
             return HttpResponse(
-                content=f'Webhook received: {event["type"]} | SUCCESS: Verified order manually',
+                content=(
+                    f'Webhook received: {event["type"]} | '
+                    'SUCCESS: Verified order manually'
+                ),
                 status=200
             )
         else:
@@ -139,12 +183,24 @@ class StripeWH_Handler:
                     user_profile=profile,
                     email=billing_details.get("email"),
                     phone_number=shipping_details.get("phone"),
-                    country=shipping_details.get("address", {}).get("country"),
-                    postcode=shipping_details.get("address", {}).get("postal_code"),
-                    town_or_city=shipping_details.get("address", {}).get("city"),
-                    street_address1=shipping_details.get("address", {}).get("line1"),
-                    street_address2=shipping_details.get("address", {}).get("line2"),
-                    county=shipping_details.get("address", {}).get("state"),
+                    country=shipping_details.get(
+                        "address", {}
+                    ).get("country"),
+                    postcode=shipping_details.get(
+                        "address", {}
+                    ).get("postal_code"),
+                    town_or_city=shipping_details.get(
+                        "address", {}
+                    ).get("city"),
+                    street_address1=shipping_details.get(
+                        "address", {}
+                    ).get("line1"),
+                    street_address2=shipping_details.get(
+                        "address", {}
+                    ).get("line2"),
+                    county=shipping_details.get(
+                        "address", {}
+                    ).get("state"),
                     grand_total=grand_total,
                     original_bag=bag,
                     stripe_pid=pid,
@@ -160,13 +216,16 @@ class StripeWH_Handler:
                     order_line_item.save()
 
             except Exception as e:
-               print(f"🔥 Webhook Error: {e}")  # Add this line to get the actual error in terminal
-               if order:
+                print(f"🔥 Webhook Error: {e}")
+                if order:
                     order.delete()
-               return HttpResponse(
-                    content=f'Webhook received: {event["type"]} | ERROR: {e}',
+                return HttpResponse(
+                    content=(
+                        f'Webhook received: {event["type"]} | '
+                        f'ERROR: {e}'
+                    ),
                     status=500
-               )
+                )
 
             self._send_confirmation_email(order)
             print(">>> Called send_mail after creating new order <<<")
@@ -174,13 +233,18 @@ class StripeWH_Handler:
             order.save(update_fields=['email_sent'])
 
         return HttpResponse(
-            content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
+            content=(
+                f'Webhook received: {event["type"]} | '
+                'SUCCESS: Created order in webhook'
+            ),
             status=200
         )
 
     def handle_payment_intent_payment_failed(self, event):
         """Handle the payment_intent.payment_failed webhook from Stripe"""
         return HttpResponse(
-            content=f'Webhook received: {event["type"]} | Payment failed',
+            content=(
+                f'Webhook received: {event["type"]} | Payment failed'
+            ),
             status=200
         )
