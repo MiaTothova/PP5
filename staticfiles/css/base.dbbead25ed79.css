@@ -30,17 +30,13 @@ body {
     width: fit-content;
 }
 
-/* .shop-now-button {
-    background: black;
-    color: white;
-    min-width: 260px;
-} */
+
  .shop-now-button {
-    background-color: #ff69b4;
+    background-color: black !important;
     color: white;
     border: none;
     font-weight: bold;
-    letter-spacing: 1px;
+    letter-spacing: 1prgb(8, 8, 8)
 }
 
 .logo-font {

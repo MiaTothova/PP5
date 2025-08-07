@@ -30,13 +30,8 @@ body {
     width: fit-content;
 }
 
-/* .shop-now-button {
-    background: black;
-    color: white;
-    min-width: 260px;
-} */
  .shop-now-button {
-    background-color: #ff69b4;
+    background-color: black !important;
     color: white;
     border: none;
     font-weight: bold;
@@ -56,7 +51,7 @@ body {
 
 .btn-black {
     background: black;
-    color: white;
+    /* color: white; */
 }
 
 .btn-outline-black {
@@ -332,9 +327,6 @@ footer hr {
 
 
 
-
-
-
 /* fixed top navbar only on medium and up */
 @media (min-width: 992px) {
     .fixed-top-desktop-only {
@@ -347,7 +339,6 @@ footer hr {
 
     .header-container {
         padding-top: 164px;
-        /* padding-top: 204px; */
 
     }
 }
@@ -356,7 +347,6 @@ footer hr {
 @media (max-width: 991px) {
     .header-container {
         padding-top: 116px;
-        /* padding-top: 156px; */
 
     }
 

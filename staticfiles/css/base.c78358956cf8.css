@@ -28,7 +28,7 @@ body {
 }
 
 .shop-now-button {
-    background: black;
+    background: black !important;
     color: white;
     min-width: 260px;
 }
